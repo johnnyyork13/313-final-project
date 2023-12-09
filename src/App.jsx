@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import React from 'react';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    async function testFetch() {
+      const url = 'https://us-central1-database-class-backend.cloudfunctions.net/api/test';
+      await fetch(url, {mode: 'cors', credentials: 'include'}).then((res) => res.json()).then((data) => console.log(data));
+    }
+    testFetch();
+  }, []);
+
+  
 
   return (
     <>
