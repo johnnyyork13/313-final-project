@@ -8,8 +8,15 @@ function App() {
 
   React.useEffect(() => {
     async function testFetch() {
-      const url = 'https://us-central1-database-class-backend.cloudfunctions.net/api/test';
-      await fetch(url, {mode: 'cors', credentials: 'include'}).then((res) => res.json()).then((data) => console.log(data));
+      const url = 'https://us-central1-database-class-backend.cloudfunctions.net/api/test'
+      // const url = 'http://localhost:3000/test';
+      try {
+        await fetch(url)
+        .then((res) => res.json())
+        .then((data) => console.log("data", data));
+      } catch(err) {
+        console.log(err);
+      }
     }
     testFetch();
   }, []);
@@ -26,7 +33,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>WORKING!</h1>
+      <h1>WORKING!!!!</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
