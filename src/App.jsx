@@ -11,7 +11,7 @@ function App() {
       const url = 'https://us-central1-database-class-backend.cloudfunctions.net/api/test'
       // const url = 'http://localhost:3000/test';
       try {
-        await fetch(url)
+        await fetch(url, {mode: "cors"})
         .then((res) => res.json())
         .then((data) => console.log("data", data));
       } catch(err) {
