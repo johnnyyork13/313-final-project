@@ -119,6 +119,8 @@ aside label {
     border-top: 1px solid var(--five);
     background-color: white;
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .recent-container-header {
@@ -130,6 +132,8 @@ aside label {
 .recent-book-link {
     font-size: 1.2rem;
     text-decoration: underline;
+    margin-bottom: 15px;
+    
 }
 
 .recent-book-link:hover {
@@ -329,16 +333,19 @@ aside label {
     font-size: 2rem;
 }
 
-.view-book-author {
-    font-size: 1.6rem;
+.view-book-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.view-book-publisher {
-    font-size: 1.5rem;
+.view-book-sub-header, .view-book-sub-info {
+    margin: 0;
+    margin-top: 15px;
 }
 
-.view-book-year {
-    font-size: 1.2rem;
+.view-book-sub-header {
+    font-size: 1.4rem;
 }
 
 .remove-btn {

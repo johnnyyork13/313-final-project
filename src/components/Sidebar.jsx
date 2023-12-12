@@ -80,7 +80,7 @@ export default function Sidebar(props) {
             </label>
             <div className="search-bar-container">
                 {error.error && <span className="error-msg search-error">{error.msg}</span>}
-                <input onChange={handleFilterChange} type={search.filter === "year" ? "number" : "text"} placeholder='Keywords' name='keywords' />
+                <input onChange={handleFilterChange} type={(search.filter === "year" || search.filter === 'isbn') ? "number" : "text"} placeholder='Keywords' name='keywords' />
                 <button className="main-btn" onClick={handleSearchSubmit} type="button">Search</button>
             </div>
             <Recent 

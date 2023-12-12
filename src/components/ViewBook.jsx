@@ -2,7 +2,9 @@ import React from 'react';
 
 export default function ViewBook(props) {
 
-    const addCommasToAuthors = props.currentBook.author.map((author) => `${author},`);
+    const addCommasToAuthors = props.currentBook.author.map((author, index) => {
+        return index < props.currentBook.author.length - 1 ? `${author},` : author;
+    });
 
     const [deleteBook, setDeleteBook] = React.useState(false);
     const [showDeleteModal, setShowDeleteModal] = React.useState(false);
@@ -60,10 +62,24 @@ export default function ViewBook(props) {
                     className="exit-btn"
                 >Exit</button>
                 <p className="view-book-header view-book-title">{props.currentBook.title}</p>
-                <p className="view-book-header view-book-author">{addCommasToAuthors}</p>
-                <p className="view-book-header view-book-publisher">{props.currentBook.publisher}</p>
-                <p className="view-book-header view-book-year">{props.currentBook.year}</p>
-                <p className="view-book-header view-book-isbn">ISBN# {props.currentBook.isbn}</p>
+
+                <div className="view-book-header view-book-author">
+                    <p className="view-book-sub-header">{addCommasToAuthors.length > 1 ? "Authors" : "Author"}: </p>
+                    <p className="view-book-sub-info">{addCommasToAuthors}</p>
+                </div>
+                <div className="view-book-header view-book-publisher">
+                    <p className="view-book-sub-header">Publisher: </p>
+                    <p className="view-book-sub-info">{props.currentBook.publisher}</p>
+                </div>
+                <div className="view-book-header view-book-year">
+                    <p className="view-book-sub-header">Published Year: </p>
+                    <p className="view-book-sub-info">{props.currentBook.year}</p>
+                </div>
+                <div className="view-book-header view-book-isbn">
+                    <p className="view-book-sub-header">ISBN# </p>
+                    <p className="view-book-sub-info">{props.currentBook.isbn}</p>
+                </div>
+
                 <button 
                     onClick={() => setShowDeleteModal(true)}
                     type="button" 
