@@ -17,19 +17,27 @@ export default function Recent(props) {
         } catch(err) {
             console.log(err);
         }
-    }, [])
+    }, [props.showBook])
 
-    function handleRecentBookClick(_id) {
-
+    function handleRecentBookClick(book) {
+        props.setCurrentBook(book);
+        props.setShowBook(true);
     }
 
     const mappedRecentBooks = recentBooks.map((book) => {
-        <a key={uuidv4()} onClick={() => handleRecentBookClick(book._id)}>{book.title}</a>
+        return  <a 
+                    key={uuidv4()} 
+                    className="recent-book-link"
+                    onClick={() => handleRecentBookClick(book)}
+                    >{book.title}
+                </a>
     })
+    
 
     return (
         <div className="recent-container">
             <p className="recent-container-header">Recent Additions</p>
+            {mappedRecentBooks}
         </div>
     )
 }

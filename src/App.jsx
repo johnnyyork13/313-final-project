@@ -7,6 +7,7 @@ import AddBookForm from './components/AddBookForm';
 import Book from './components/Book';
 import MyBooks from './components/MyBooks';
 import ViewBook from './components/ViewBook';
+import SearchBooks from './components/SearchBooks';
 
 function App() {  
 
@@ -18,16 +19,19 @@ function App() {
   const [page, setPage] = React.useState("home");
   const [showModal, setShowModal] = React.useState(false);
   const [showBook, setShowBook] = React.useState(false);
+  const [getResults, setGetResults] = React.useState(false);
 
   React.useEffect(() => {
     try {
-      async function getAllBooks() {
-        const url = root + '/books/all'; //added limit of 12
-        await fetch(url).then((res) => res.json())
-        .then((books) => setBookList(books.bookList))
-        .catch((err) => console.log(err));
+      if (page === 'home') {
+        async function getAllBooks() {
+          const url = root + '/books/all/glance'; //added limit of 12
+          await fetch(url).then((res) => res.json())
+          .then((books) => setBookList(books.bookList))
+          .catch((err) => console.log(err));
+        }
+        getAllBooks();
       }
-      getAllBooks();
     } catch(err) {
       console.log(err);
     }
@@ -54,21 +58,46 @@ function App() {
       }
       <Header 
         setPage={setPage}
+        setBookList={setBookList}
       />
-      {(page === 'home' || page === "myBooks") && <div className="home-container">
+      {(page === 'home' || page === "myBooks" || page === 'search') && <div className="home-container">
         <Sidebar 
           root={root}
           setBookList={setBookList}
           setPage={setPage}
+          getResults={getResults}
+          setGetResults={setGetResults}
+          setShowBook={setShowBook}
+          showBook={showBook}
+          setCurrentBook={setCurrentBook}
         />
         {page === "home" && <div className='book-container'>
           <p className="book-container-header">At a Glance</p>
-          <div className="mapped-book-container">
+          {mappedBookList.length > 0 && <div className="mapped-book-container">
             {mappedBookList}
-          </div>
+          </div>}
+          {mappedBookList.length === 0 && 
+            <p className="no-books-header">No Books in Library Match Search Criteria</p>
+          }
         </div>}
         {page === "myBooks" && 
-          <MyBooks />
+          <MyBooks 
+            root={root}
+            setCurrentBook={setCurrentBook}
+            setPage={setPage}
+            setShowBook={setShowBook}
+            showBook={showBook}
+          />
+        }
+        {page === 'search' && 
+          <SearchBooks 
+            root={root}
+            setCurrentBook={setCurrentBook}
+            setPage={setPage}
+            setShowBook={setShowBook}
+            showBook={showBook}
+            bookList={bookList}
+          />
         }
       </div>}
       {page === 'addBook' && <div className="add-book-container">

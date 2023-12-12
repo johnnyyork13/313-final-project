@@ -2,25 +2,15 @@ import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 import Book from './Book';
 
-export default function MyBooks(props) {
+export default function SearchBooks(props) {
 
-    const [bookList, setBookList] = React.useState([]);
+    const [results, setResults] = React.useState([]);
 
     React.useEffect(() => {
-        try {
-            const url = props.root + '/books/all/my-books';
-            async function getAllBooks() {
-                await fetch(url).then((res) => res.json())
-                .then((books) => setBookList(books.bookList))
-                .catch((err) => console.log(err));
-            }
-            getAllBooks();
-        } catch(err) {
-            console.log(err);
-        }
-    }, [props.bookList, props.showBook])
+        setResults(props.bookList);
+    }, [props.bookList]);
 
-    const mappedBookList = bookList.map((book) => {
+    const mappedBookList = results.map((book) => {
         return <Book 
                     key={uuidv4()}
                     book={book}
@@ -32,7 +22,7 @@ export default function MyBooks(props) {
 
     return (
         <div className="my-books-container">
-            <p className="my-books-header">My Books</p>
+            <p className="my-books-header">Search Library</p>
             {mappedBookList.length > 0 && <div className="my-books">
                 {mappedBookList}
             </div>}

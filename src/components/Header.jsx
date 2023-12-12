@@ -10,7 +10,10 @@ export default function Header(props) {
             >My313Library</div>
             <nav>
                 <a onClick={() => props.setPage('addBook')}>Add Book +</a>
-                <a onClick={() => props.setPage('myBooks')}>My Books</a>
+                <a onClick={() => {
+                    props.setPage('myBooks');
+                    props.setBookList([]);
+                }}>My Books</a>
             </nav>
         </header>
     )

@@ -127,6 +127,16 @@ aside label {
     font-weight: bolder;
 }
 
+.recent-book-link {
+    font-size: 1.2rem;
+    text-decoration: underline;
+}
+
+.recent-book-link:hover {
+    color: var(--five);
+    cursor: pointer;
+}
+
 .main-btn:hover {
     cursor: pointer;
     background-color: var(--three);
@@ -297,6 +307,8 @@ aside label {
     border-right: 20px solid var(--nine);
     border-bottom: 10px solid var(--nine);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .exit-btn {
@@ -329,3 +341,27 @@ aside label {
     font-size: 1.2rem;
 }
 
+.remove-btn {
+    align-self: center;
+}
+
+.my-books-container {
+    width: 100%;
+}
+
+.my-books-header {
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.my-books {
+    display: grid;
+    grid-template-columns: repeat(3, 220px);
+    grid-auto-rows: 300px;
+    gap: 50px;
+}
+
+.no-books-header {
+    text-align: center;
+    font-size: 1.2rem;
+}

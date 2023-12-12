@@ -7,12 +7,11 @@ export default function Sidebar(props) {
         filter: "",
         keywords: "",
     });
-    const [getResults, setGetResults] = React.useState(false);
     const [error, setError] = React.useState(false);
 
     React.useEffect(() => {
         try {
-            if (getResults) {
+            if (props.getResults) {
                 const url = props.root + '/books/filter'
                 async function getSearchResults() {
                     await fetch(url, {
@@ -24,9 +23,9 @@ export default function Sidebar(props) {
                         body: JSON.stringify(search)
                     }).then((res) => res.json())
                     .then((books) => {
-                        console.log('returned booklist', books.bookList);
                         props.setBookList(books.bookList);
-                        setGetResults(false);
+                        props.setPage('search');
+                        props.setGetResults(false);
                     })
                     .catch((err) => console.log(err));
                 }
@@ -35,7 +34,7 @@ export default function Sidebar(props) {
         } catch(err) {
             console.log(err);
         }
-    }, [getResults]);
+    }, [props.getResults]);
 
     function handleFilterChange(e) {
         setSearch((prev) => ({
@@ -45,11 +44,14 @@ export default function Sidebar(props) {
     }
 
     function handleSearchSubmit() {
-        if (search.filter === "" || search.keywords === "") {
-            setError(true);
+        if (search.filter === "" || search.keywords === "" ) {
+            setError({
+                error: true,
+                msg: "*Please select filter and enter keywords"
+            });
         } else {
             setError(false);
-            setGetResults(true);
+            props.setGetResults(true);
         }
     }
 
@@ -77,12 +79,15 @@ export default function Sidebar(props) {
                 Year
             </label>
             <div className="search-bar-container">
-                {error && <span className="error-msg search-error">*Please select filter and enter keywords</span>}
-                <input onChange={handleFilterChange} type="text" placeholder='Keywords' name='keywords' />
+                {error.error && <span className="error-msg search-error">{error.msg}</span>}
+                <input onChange={handleFilterChange} type={search.filter === "year" ? "number" : "text"} placeholder='Keywords' name='keywords' />
                 <button className="main-btn" onClick={handleSearchSubmit} type="button">Search</button>
             </div>
             <Recent 
                 root={props.root}
+                setShowBook={props.setShowBook}
+                setCurrentBook={props.setCurrentBook}
+                showBook={props.showBook}
             />
         </aside>
     )

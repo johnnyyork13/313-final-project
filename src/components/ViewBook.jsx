@@ -6,6 +6,7 @@ export default function ViewBook(props) {
 
     const [deleteBook, setDeleteBook] = React.useState(false);
     const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+    const [confirmDelete, setConfirmDelete] = React.useState(false);
 
     React.useEffect(() => {
         try {
@@ -13,7 +14,7 @@ export default function ViewBook(props) {
                 const url = `${props.root}/book/delete/${props.currentBook._id}`;
                 async function postDeleteBook() {
                     await fetch(url).then((res) => res.json())
-                    .then(() => setShowDeleteModal(true))
+                    .then(() => setDeleteBook(false))
                     .catch((err) => console.log(err));
                 }
                 postDeleteBook();
@@ -28,19 +29,22 @@ export default function ViewBook(props) {
             {showDeleteModal && <div className="delete-book-modal-background">
                 <div className="delete-book-modal">
                     <p className="delete-book-modal-header">
-                        {deleteBook ? "Book Successfully Deleted!" : "Are you sure you want to remove this book?"}
+                        {confirmDelete ? "Book Successfully Deleted!" : "Are you sure you want to remove this book?"}
                     </p>
-                    {!deleteBook && <div className="delete-book-btn-container">
+                    {!confirmDelete && <div className="delete-book-btn-container">
                         <button 
                             onClick={() => setShowDeleteModal(false)}
                             className="main-btn"
                         >Go Back</button>
                         <button
-                            onClick={() => setDeleteBook(true)}
+                            onClick={() => {
+                                setDeleteBook(true);
+                                setConfirmDelete(true);
+                            }}
                             className="main-btn"
                         >Continue</button>
                     </div>}
-                    {deleteBook && <button 
+                    {confirmDelete && <button 
                         onClick={() => {
                             props.setShowBook(false);
                             setShowDeleteModal(false);
@@ -63,7 +67,7 @@ export default function ViewBook(props) {
                 <button 
                     onClick={() => setShowDeleteModal(true)}
                     type="button" 
-                    className="main-btn"
+                    className="main-btn remove-btn"
                 >Remove Book</button>
             </div>
         </div>
