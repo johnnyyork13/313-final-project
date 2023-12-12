@@ -11,8 +11,7 @@ import SearchBooks from './components/SearchBooks';
 
 function App() {  
 
-  // const root = 'https://us-central1-database-class-backend.cloudfunctions.net/api';
-  const root = 'http://localhost:3000';
+  const root = 'https://us-central1-database-class-backend.cloudfunctions.net/api';
 
   const [bookList, setBookList] = React.useState([]);
   const [currentBook, setCurrentBook] = React.useState({});
