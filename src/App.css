@@ -1,42 +1,331 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+html, body, #root {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    --fifty: #fafaf9;
+    --one: #f5f5f4;
+    --two: #e7e5e4;
+    --three: #d6d3d1;
+    --four: #a8a29e;
+    --five: #78716c;
+    --six: #57534e;
+    --seven: #44403c;
+    --eight: #292524;
+    --nine: #1c1917;
+    --nineFifty: #0c0a09;
+    --box-shadow: 3px 3px 3px 3px rgb(189, 189, 189);
+}
+
+.App {
+    width: 100%;
+    height: 100%;
+    background-color: var(--two);
+    position: relative;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--six);
+    color: white;
+    height: 64px;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+    height: 100%;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bolder;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+nav a {
+    margin-right: 20px;
 }
 
-.card {
-  padding: 2em;
+nav a:hover {
+    cursor: pointer;
+    color: var(--three);
 }
 
-.read-the-docs {
-  color: #888;
+.home-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 325px 1fr 225px;
+    grid-template-rows: 1fr;
+    gap: 100px;
 }
+
+aside {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    padding-bottom: 50px;
+    box-shadow: var(--box-shadow);
+}
+
+.sidebar-header {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+aside label {
+    font-size: 1.1rem;
+    margin-left: 20px;
+}
+
+.search-bar-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.search-bar-container input {
+    width: 100%;
+    height: 30px;
+    font-size: 1.2rem;
+}
+
+.search-error {
+    width: 100%;
+}
+
+.main-btn {
+    width: 150px;
+    height: 30px;
+    background-color: var(--four);
+    border: 2px solid var(--six);
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.recent-container {
+    border-top: 1px solid var(--five);
+    background-color: white;
+    margin-top: 50px;
+}
+
+.recent-container-header {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.main-btn:hover {
+    cursor: pointer;
+    background-color: var(--three);
+    color: var(--nine);
+}
+
+.book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-container-header {
+    font-size: 1.7rem;
+}
+
+.mapped-book-container {
+    display: grid;
+    grid-template-columns: repeat(3, 220px);
+    grid-auto-rows: 300px;
+    gap: 50px;
+}
+
+.book {
+    border: 1px solid var(--nine);
+    border-right: 10px solid var(--six);
+    border-bottom: 5px solid var(--six);
+    background-color: var(--one);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.book:hover {
+    box-shadow: 0 0 12px 12px var(--four);
+    cursor: pointer;
+}
+
+.book-header {
+    margin-bottom: 20px;
+}
+
+.book-title {
+    font-size: 1.1rem;
+}
+
+.book-author {
+    font-size: .8rem;
+}
+
+.add-book-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-book-modal-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+}
+
+.add-book-modal {
+    background-color: white;
+    height: 100px;
+    margin-top: 100px;
+    padding: 50px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    display: flex;
+    flex-direction: column;
+    color: var(--eight);
+    align-items: center;
+}
+
+.add-book-container-header {
+    margin-top: 50px;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.add-book-form {
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    width: 500px;
+    height: fit-content;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.add-book-form label {
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-book-form input {
+    height: 30px;
+
+}
+
+.error-msg {
+    color: red;
+}
+
+.form-btn {
+    width: 150px;
+    height: 30px;
+}
+
+.view-book-container-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+}
+
+.delete-book-modal-background {
+    background-color: rgb(0,0,0,.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.delete-book-modal {
+    background-color: var(--one);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--nine);
+    height: 100px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 200px;
+}
+
+.delete-book-btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.delete-book-btn-container button {
+    margin: 5px;
+}
+
+.view-book-container {
+    position: relative;
+    background-color: var(--one);
+    width: 500px;
+    height: 700px;
+    margin-top: 50px;
+    border: 2px solid var(--nine);
+    border-right: 20px solid var(--nine);
+    border-bottom: 10px solid var(--nine);
+    padding: 20px;
+}
+
+.exit-btn {
+    position: absolute;
+    right: 20px;
+    background-color: var(--one);
+    border: none;
+    font-size: 1.2rem;
+}
+
+.exit-btn:hover {
+    cursor: pointer;
+    color: var(--five);
+}
+
+.view-book-title {
+    margin-top: 40px;
+    font-size: 2rem;
+}
+
+.view-book-author {
+    font-size: 1.6rem;
+}
+
+.view-book-publisher {
+    font-size: 1.5rem;
+}
+
+.view-book-year {
+    font-size: 1.2rem;
+}
+

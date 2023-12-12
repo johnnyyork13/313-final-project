@@ -1,58 +1,98 @@
 import React from 'react';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {v4 as uuidv4} from 'uuid';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import AddBookForm from './components/AddBookForm';
+import Book from './components/Book';
+import MyBooks from './components/MyBooks';
+import ViewBook from './components/ViewBook';
 
-function App() {
-  const [count, setCount] = React.useState(0)
+function App() {  
 
-  const url = 'https://us-central1-database-class-backend.cloudfunctions.net/api/test'
-  // const url = 'http://localhost:3000/test';
+  // const root = 'https://us-central1-database-class-backend.cloudfunctions.net/api/';
+  const root = 'http://localhost:3000';
+
+  const [bookList, setBookList] = React.useState([]);
+  const [currentBook, setCurrentBook] = React.useState({});
+  const [page, setPage] = React.useState("home");
+  const [showModal, setShowModal] = React.useState(false);
+  const [showBook, setShowBook] = React.useState(false);
 
   React.useEffect(() => {
-    async function testFetch() {
-      try {
-        await fetch(url, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        .then((res) => res.json())
-        .then((data) => console.log("data", data));
-      } catch(err) {
-        console.log(err);
+    try {
+      async function getAllBooks() {
+        const url = root + '/books/all'; //added limit of 12
+        await fetch(url).then((res) => res.json())
+        .then((books) => setBookList(books.bookList))
+        .catch((err) => console.log(err));
       }
+      getAllBooks();
+    } catch(err) {
+      console.log(err);
     }
-    testFetch();
-  }, []);
+  }, [page, showBook])
 
-  
+  const mappedBookList = bookList.map((book) => {
+    return <Book 
+              key={uuidv4()}
+              book={book}
+              setCurrentBook={setCurrentBook}
+              setPage={setPage}
+              setShowBook={setShowBook}
+            />
+  })
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WORKING!!!!</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="App">
+      {showBook && 
+        <ViewBook 
+          currentBook={currentBook}
+          setShowBook={setShowBook}
+          root={root}
+        />
+      }
+      <Header 
+        setPage={setPage}
+      />
+      {(page === 'home' || page === "myBooks") && <div className="home-container">
+        <Sidebar 
+          root={root}
+          setBookList={setBookList}
+          setPage={setPage}
+        />
+        {page === "home" && <div className='book-container'>
+          <p className="book-container-header">At a Glance</p>
+          <div className="mapped-book-container">
+            {mappedBookList}
+          </div>
+        </div>}
+        {page === "myBooks" && 
+          <MyBooks />
+        }
+      </div>}
+      {page === 'addBook' && <div className="add-book-container">
+        {showModal && <div className="add-book-modal-background">
+            <div className="add-book-modal">
+              <p className="add-book-modal-header">Book Added Successfully!</p>
+              <button 
+                type="button" 
+                className="main-btn" 
+                onClick={() => {
+                  setPage("home");
+                  setShowModal(false);
+                }}
+                >Back Home</button>
+            </div>
+        </div>}
+        <p className="add-book-container-header">Add Book</p>
+        <AddBookForm 
+          root={root}
+          setPage={setPage}
+          setShowModal={setShowModal}
+        />
+      </div>}
+    </div>
   )
 }
 
