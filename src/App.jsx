@@ -20,6 +20,7 @@ function App() {
   const [showModal, setShowModal] = React.useState(false);
   const [showBook, setShowBook] = React.useState(false);
   const [getResults, setGetResults] = React.useState(false);
+  const [searchKey, setSearchKey] = React.useState("");
 
   React.useEffect(() => {
     try {
@@ -70,6 +71,7 @@ function App() {
           setShowBook={setShowBook}
           showBook={showBook}
           setCurrentBook={setCurrentBook}
+          setSearchKey={setSearchKey}
         />
         {page === "home" && <div className='book-container'>
           <p className="book-container-header">At a Glance</p>
@@ -97,6 +99,7 @@ function App() {
             setShowBook={setShowBook}
             showBook={showBook}
             bookList={bookList}
+            searchKey={searchKey}
           />
         }
       </div>}

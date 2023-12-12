@@ -25,6 +25,7 @@ export default function Sidebar(props) {
                     .then((books) => {
                         props.setBookList(books.bookList);
                         props.setPage('search');
+                        props.setSearchKey(search.filter)
                         props.setGetResults(false);
                     })
                     .catch((err) => console.log(err));

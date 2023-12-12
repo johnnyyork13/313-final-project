@@ -22,7 +22,7 @@ export default function SearchBooks(props) {
 
     return (
         <div className="my-books-container">
-            <p className="my-books-header">Search Library</p>
+            <p className="my-books-header">Search by {props.searchKey[0].toUpperCase() + props.searchKey.slice(1)}</p>
             {mappedBookList.length > 0 && <div className="my-books">
                 {mappedBookList}
             </div>}
