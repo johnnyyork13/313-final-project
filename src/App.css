@@ -14,6 +14,7 @@ html, body, #root {
     --nine: #1c1917;
     --nineFifty: #0c0a09;
     --box-shadow: 3px 3px 3px 3px rgb(189, 189, 189);
+    background-color: var(--two);
 }
 
 .App {
