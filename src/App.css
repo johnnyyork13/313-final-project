@@ -209,6 +209,7 @@ aside label {
     background-color: rgba(0,0,0,.5);
     display: flex;
     justify-content: center;
+    z-index: 1;
 }
 
 .add-book-modal {
@@ -237,10 +238,17 @@ aside label {
     width: 500px;
     height: fit-content;
     padding: 20px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    position: relative;
+    z-index: 0;
+}
+
+.add-book-form-exit-btn {
+    top: 10px;
+    background-color: white !important;
 }
 
 .add-book-form label {

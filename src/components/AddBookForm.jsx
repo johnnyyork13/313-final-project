@@ -68,6 +68,10 @@ export default function AddBookForm(props) {
 
     return (
         <form className="add-book-form">
+            <button 
+                    onClick={() => props.setPage("home")}
+                    className="exit-btn add-book-form-exit-btn"
+                >Exit</button>
             <label htmlFor="isbn"><span><span className="input-label-text">ISBN</span> {checkFields.isbn && <span className="error-msg">*Please Enter an ISBN</span>}</span>
                 <input type="text" name="isbn" onChange={handleFormInputChange} required/>
             </label>

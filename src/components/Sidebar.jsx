@@ -12,7 +12,7 @@ export default function Sidebar(props) {
     React.useEffect(() => {
         try {
             if (props.getResults) {
-                const url = props.root + '/books/filter'
+                const url = props.root + '/books/filter';
                 async function getSearchResults() {
                     await fetch(url, {
                         method: "POST",
