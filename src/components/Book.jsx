@@ -3,7 +3,15 @@ import React from 'react';
 export default function Book(props) {
 
     const addCommasToAuthors = props.book.author.map((author, index) => {
-        return index < props.book.author.length - 1 ? ` ${author},` : author;
+        let modifiedAuthor;
+        if (index === 0) {
+            modifiedAuthor = author;
+        } else if (index < props.book.author.length - 1) {
+            modifiedAuthor = ` ${author},`
+        } else {
+            ` ${author}`
+        }
+        return modifiedAuthor;
     });
 
     function handleBookClick() {
