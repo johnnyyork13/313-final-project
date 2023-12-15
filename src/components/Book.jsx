@@ -4,12 +4,14 @@ export default function Book(props) {
 
     const addCommasToAuthors = props.book.author.map((author, index) => {
         let modifiedAuthor;
-        if (index === 0) {
+        if (index === 0 && props.book.author.length !== 1) {
             modifiedAuthor = `${author},`;
         } else if (index < props.book.author.length - 1) {
             modifiedAuthor = ` ${author},`
+        } else if (index === props.book.author.length - 1) {
+            modifiedAuthor = ` ${author}`
         } else {
-            ` ${author}`
+            modifiedAuthor = author;
         }
         return modifiedAuthor;
     });
